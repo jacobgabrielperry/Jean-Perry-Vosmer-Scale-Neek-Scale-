@@ -458,7 +458,8 @@ if (unansweredCount > 0) {
         if(q.cat==="hobbies") hobbies.push(answers[i]);
     });
 
-    let score = (avg(social)*1.1 + avg(academia)*0.8 + avg(hobbies)*1.1)/3;
+    let rawScore = (avg(social)*1.1 + avg(academia)*0.8 + avg(hobbies)*1.1)/3;
+    let score = 10 * Math.pow(rawScore / 10, 0.56);
 
 document.getElementById("result").innerText =
     "Your Neek Score: " + score.toFixed(2);
