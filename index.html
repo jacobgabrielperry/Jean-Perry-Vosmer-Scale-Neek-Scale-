@@ -55,7 +55,7 @@ h1 {
 }
 
 #submitBtn {
-    display: block;
+    display: none;
     margin: 40px auto;
     padding: 15px 25px;
     font-size: 18px;
@@ -215,11 +215,11 @@ h1 {
     </select>
 
     <br><br>
-    <button id="startBtn" onclick="startQuiz()">Start Quiz</button>
+    <button id="startBtn">Start Quiz</button>
 </div>    
 <div id="quiz" style="display: none;"></div>
 
-<button id="submitBtn" onclick="calculateScore()">Calculate Score</button>
+<button id="submitBtn">Calculate Score</button>
 <p id="thankYou">
     Thank you for taking the test! If you want to take it again, refresh the page!
 </p>
@@ -365,8 +365,11 @@ const questions = [
 ];
 
 const quiz = document.getElementById("quiz");
+const startBtn = document.getElementById("startBtn");
+const submitBtn = document.getElementById("submitBtn");    
 let answers = new Array(questions.length).fill(null);
-
+startBtn.addEventListener("click", startQuiz);
+submitBtn.addEventListener("click", calculateScore);
 // Build UI grouped by category
 ["social","academia","hobbies"].forEach(category => {
     const section = document.createElement("div");
@@ -403,7 +406,7 @@ let answers = new Array(questions.length).fill(null);
 
     quiz.appendChild(section);
 });
-window.startQuiz = function() {
+function startQuiz() {
     const select = document.getElementById("majorSelect");
 
     if (select.value === "") {
@@ -414,12 +417,13 @@ window.startQuiz = function() {
     selectedMajor = select.value;
     document.getElementById("startSection").style.display = "none";
     document.getElementById("quiz").style.display = "block";
+    document.getElementById("submitBtn").style.display = "block";
 }
 function avg(arr){
     return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
 }
 
-window.calculateScore = async function(){
+async function calculateScore(){
     let social=[], academia=[], hobbies=[];
 
     questions.forEach((q,i)=>{
