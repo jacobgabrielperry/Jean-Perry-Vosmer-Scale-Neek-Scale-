@@ -359,7 +359,7 @@ let answers = new Array(questions.length).fill(null);
 
     quiz.appendChild(section);
 });
-function startQuiz() {
+window.startQuiz = function() {
     const select = document.getElementById("majorSelect");
 
     if (select.value === "") {
@@ -375,7 +375,7 @@ function avg(arr){
     return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
 }
 
-async function calculateScore(){
+window.calculateScore = async function(){
     let social=[], academia=[], hobbies=[];
 
     questions.forEach((q,i)=>{
