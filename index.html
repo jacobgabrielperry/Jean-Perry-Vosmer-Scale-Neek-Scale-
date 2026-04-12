@@ -124,6 +124,25 @@ h1 {
 
 #averages p {
     margin: 8px 0;
+}
+#topMajor {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(0, 194, 255, 0.1);
+    border-radius: 12px;
+}
+
+.topMajorName {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #00c2ff;
+}
+
+.topMajorScore {
+    font-size: 26px;
+    font-weight: bold;
 }    
 </style>
 </head>
@@ -420,17 +439,40 @@ async function showAverages() {
         majorData[data.major].count += 1;
     });
 
-    let html = '<div id="averages"><h3>Average Neek Score by Bachelor</h3>';
+   let html = '<div id="averages">';
 
-    const majors = Object.keys(majorData).sort();
+const majors = Object.keys(majorData).sort((a, b) => {
+    const avgA = majorData[a].total / majorData[a].count;
+    const avgB = majorData[b].total / majorData[b].count;
+    return avgB - avgA;
+});
 
-    if (majors.length === 0) {
-        html += "<p>No submissions yet.</p>";
-    } else {
-        majors.forEach((major) => {
-            const avgScore = majorData[major].total / majorData[major].count;
-            html += `<p><strong>${major}</strong>: ${avgScore.toFixed(2)}</p>`;
-        });
+// 🏆 Neekiest bachelor (top one)
+if (majors.length > 0) {
+    const topMajor = majors[0];
+    const topScore = majorData[topMajor].total / majorData[topMajor].count;
+
+    html += `
+        <div id="topMajor">
+            <h3>🏆 Current Neekiest Bachelor</h3>
+            <p class="topMajorName">${topMajor}</p>
+            <p class="topMajorScore">${topScore.toFixed(2)}</p>
+        </div>
+    `;
+}
+
+// 📊 Full ranking
+html += '<h3 style="margin-top:30px;">Full Ranking</h3>';
+
+majors.forEach((major, index) => {
+    const avgScore = majorData[major].total / majorData[major].count;
+
+    html += `
+        <p>
+            <strong>#${index + 1} ${major}</strong>: ${avgScore.toFixed(2)}
+        </p>
+    `;
+});
     }
 
     html += "</div>";
