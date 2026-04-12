@@ -78,7 +78,20 @@ h1 {
 
 <div class="container">
 <h1>Neek Scale Test</h1>
-
+<div class="intro">
+    <h2>What does it mean to be a neek?</h2>
+    <p>
+        A neek, defined by AI Overview Google, is someone who is considered socially awkward, overly
+        focused on academics, and/or interested in niche subjects.
+    </p>
+    <p>
+        There are other definitions for neek, but this is the one that fits the way we view a neeky person.
+    </p>
+    <p>
+        We therefore reject Collins Dictionary’s definition of neek, which considers it to be a derogatory
+        noun, used to describe a dull or unpopular person.
+    </p>
+</div>
 <div id="quiz"></div>
 
 <button id="submitBtn" onclick="calculateScore()">Calculate Score</button>
@@ -95,10 +108,10 @@ const questions = [
 ["Never",1],["Sometimes",5],["All the time",9]]},
 
 {cat:"social", text:"Do you use Discord?", options:[
-["No",2],["Occasionally",5],["Daily",9]]},
+["I have never used it",2],["Once or twice",5],["Very often",9]]},
 
-{cat:"social", text:"Have you argued in social media comments?", options:[
-["Never",2],["A few times",6],["Often",9]]},
+{cat:"social", text:"Have you argued in the comment section of a social media post?", options:[
+["Never",2],["Only once",4],["Often",9]]},
 
 {cat:"social", text:"Do you say 'see you next year' at New Year?", options:[
 ["No",2],["Once",6],["Every year",9]]},
@@ -106,7 +119,7 @@ const questions = [
 {cat:"social", text:"Do you get nervous at parties?", options:[
 ["No",1],["Sometimes",5],["Yes",9]]},
 
-{cat:"social", text:"Made a fan account?", options:[
+{cat:"social", text:"Have you ever made a fan account?", options:[
 ["No",2],["Yes",9]]},
 
 {cat:"social", text:"Do you practice accents/impersonations?", options:[
@@ -115,96 +128,96 @@ const questions = [
 {cat:"social", text:"Were you a theatre kid?", options:[
 ["No",2],["A bit",6],["Yes",9]]},
 
-{cat:"social", text:"Talk about uni at parties?", options:[
+{cat:"social", text:"Do you talk about uni at parties?", options:[
 ["No",2],["Sometimes",6],["Yes",9]]},
 
-{cat:"social", text:"Quote memes/vines?", options:[
+{cat:"social", text:"Do you quote memes/vines?", options:[
 ["No",2],["Sometimes",6],["Constantly",9]]},
 
 /* ACADEMIA */
-{cat:"academia", text:"Retaken exam for better grade?", options:[
+{cat:"academia", text:"Have you ever retaken an exam for a better grade?", options:[
 ["No",2],["Once",6],["Yes multiple times",9]]},
 
-{cat:"academia", text:"Calculated GPA?", options:[
+{cat:"academia", text:"Have you ever calculated your GPA?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"academia", text:"Studied material not on exam?", options:[
-["No",2],["Sometimes",6],["Yes",9]]},
+{cat:"academia", text:"Have you ever studied content that wasn't going to be on your exam?", options:[
+["No",2],["Yes",9]]},
 
-{cat:"academia", text:"Do people use your notes?", options:[
+{cat:"academia", text:"Do people ask for your notes?", options:[
 ["No",2],["Sometimes",6],["Often",10]]},
 
-{cat:"academia", text:"Failed an exam first try?", options:[
+{cat:"academia", text:"Have you ever failed an exam?", options:[
 ["No",9],["Yes",3]]},
 
-{cat:"academia", text:"Failed a test?", options:[
+{cat:"academia", text:"Have you ever failed a midterm?", options:[
+["No",10],["Yes",2]]},
+
+{cat:"academia", text:"Have you ever retaken a course?", options:[
 ["No",9],["Yes",3]]},
 
-{cat:"academia", text:"Retaken a course?", options:[
-["No",9],["Yes",3]]},
-
-{cat:"academia", text:"Study early in silent zones?", options:[
+{cat:"academia", text:"Have you ever gotten up early to study in silent zones?", options:[
 ["No",2],["Sometimes",6],["Yes",9]]},
 
-{cat:"academia", text:"Skip lectures?", options:[
+{cat:"academia", text:"Have you ever skipped lectures?", options:[
 ["Often",2],["Sometimes",6],["Never",9]]},
 
-{cat:"academia", text:"Attend GSS?", options:[
-["No",2],["Sometimes",6],["Always",9]]},
+{cat:"academia", text:"Have you ever attended a GSS(Guided-self-study)?", options:[
+["No",1],["Sometimes",6],["Always",9]]},
 
-{cat:"academia", text:"Study for grades?", options:[
-["Just pass",2],["Mix",6],["Top grades",9]]},
+{cat:"academia", text:"What do you aim for in a exam?", options:[
+["Just pass",2],["A dececnt grade",6],["Top top grades",9]]},
 
-{cat:"academia", text:"Own uni merch?", options:[
+{cat:"academia", text:"Do you own uni merch?", options:[
 ["No",2],["Yes",7]]},
 
-{cat:"academia", text:"Corrected a professor?", options:[
+{cat:"academia", text:"Have you ever corrected a professor?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"academia", text:"Lost sleep over exams?", options:[
+{cat:"academia", text:"Have you ever lost sleep over exams?(stress or staying up late to study)", options:[
 ["No",2],["Sometimes",6],["Yes",9]]},
 
-{cat:"academia", text:"Know digits of pi?", options:[
-["No",2],["Yes",8]]},
+{cat:"academia", text:"Do you know the digits of pi?", options:[
+["No",2],["The first 3(3.14)",6],["More then the first 3",8]]},
 
-{cat:"academia", text:"Planning a PhD?", options:[
+{cat:"academia", text:"Are you planning on doing a PhD?", options:[
 ["No",2],["Maybe",6],["Yes",10]]},
 
 /* HOBBIES */
-{cat:"hobbies", text:"Want movie props?", options:[
+{cat:"hobbies", text:"Do you own or would you want to own any props used in a movie/series? (Think of lightsaber, Harry Potter robe, the car from Back To The Future)", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Rewatched a movie 3+ times alone?", options:[
+{cat:"hobbies", text:"Did you ever rewatch a movie alone 3 times or more? (This is specifically about rewatching a movie because you enjoy it, not because you watched it again with people who had not seen it yet)", options:[
 ["No",2],["Yes",8]]},
 
-{cat:"hobbies", text:"Hours on most played game?", options:[
-["Don't play",1],["~100",6],["1000+",10]]},
+{cat:"hobbies", text:"How many hours have you spent on your most played video game?", options:[
+["Don't play",1],["~100",6],["500+",10]]},
 
-{cat:"hobbies", text:"Vehicle watching?", options:[
+{cat:"hobbies", text:"Do you ever go car/train/bus/airplane watching?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Gone to conventions?", options:[
+{cat:"hobbies", text:" Have you ever gone to conventions? (ComicCon, Car MeetUps, AniCon, etc.)", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Used Reddit?", options:[
+{cat:"hobbies", text:"Have you ever posted/responded on reddit?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Enjoy board games?", options:[
-["No",2],["Yes",8]]},
+{cat:"hobbies", text:"Do you enjoy playing board games?", options:[
+["No",2],["Yes",6]]},
 
-{cat:"hobbies", text:"Top Spotify listener?", options:[
+{cat:"hobbies", text:"Have you been in the top 0.005% listeners of an artist on Spotify?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Collected cards?", options:[
+{cat:"hobbies", text:"Have you collected cards? (Pokemon, Baseball, Football, etc.)", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Collected figurines?", options:[
+{cat:"hobbies", text:"Have you collected figurines? (Funko Pops, Anime)", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Duolingo streak 100+?", options:[
+{cat:"hobbies", text:"Do you or did you have a Duolingo streak higher than 100 days?", options:[
 ["No",2],["Yes",9]]},
 
-{cat:"hobbies", text:"Into mythology?", options:[
+{cat:"hobbies", text:" Are you into ancient mythology? (Greek, Norse, Egyptian, Roman)", options:[
 ["No",2],["Yes",8]]}
 
 ];
