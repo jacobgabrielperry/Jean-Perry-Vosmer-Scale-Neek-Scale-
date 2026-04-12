@@ -187,6 +187,15 @@ h1 {
     font-weight: bold;
     color: #00c2ff;
 }
+.bar {
+    font-family: monospace;
+    letter-spacing: 2px;
+    color: #00c2ff;
+}
+#submitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 </style>
 </head>
 
@@ -259,7 +268,7 @@ h1 {
 </div>    
 <div id="quiz" style="display: none;"></div>
 
-<button id="submitBtn">Calculate Score</button>
+<button id="submitBtn" disabled>Answer all questions to unlock score</button>
 <p id="thankYou">
     Thank you for taking the test! If you want to take it again, refresh the page!
 </p>
@@ -410,6 +419,7 @@ const submitBtn = document.getElementById("submitBtn");
 let answers = new Array(questions.length).fill(null);
 startBtn.addEventListener("click", startQuiz);
 submitBtn.addEventListener("click", calculateScore);
+updateSubmitButton();
 // Build UI grouped by category
 ["social","academia","hobbies"].forEach(category => {
     const section = document.createElement("div");
@@ -432,10 +442,11 @@ submitBtn.addEventListener("click", calculateScore);
             btn.innerText = label;
 
             btn.onclick = () => {
-                answers[i] = score;
-                [...optDiv.children].forEach(b=>b.classList.remove("selected"));
-                btn.classList.add("selected");
-            };
+    answers[i] = score;
+    [...optDiv.children].forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    updateSubmitButton();
+           };
 
             optDiv.appendChild(btn);
         });
@@ -458,6 +469,17 @@ function startQuiz() {
     document.getElementById("startSection").style.display = "none";
     document.getElementById("quiz").style.display = "block";
     document.getElementById("submitBtn").style.display = "block";
+}
+function updateSubmitButton() {
+    const unansweredCount = answers.filter(answer => answer === null).length;
+
+    if (unansweredCount === 0) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Calculate Score";
+    } else {
+        submitBtn.disabled = true;
+        submitBtn.textContent = `Answer all questions to unlock score (${unansweredCount} left)`;
+    }
 }
 function avg(arr){
     return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
@@ -555,11 +577,15 @@ html += '<h3 style="margin-top:30px;">Full Ranking</h3>';
 majors.forEach((major, index) => {
     const avgScore = majorData[major].total / majorData[major].count;
 
-    html += `
-        <p>
-            <strong>#${index + 1} ${major}</strong>: ${avgScore.toFixed(2)}
-        </p>
-    `;
+    let barLength = Math.round(avgScore); // out of 10
+let bar = "█".repeat(barLength) + "░".repeat(10 - barLength);
+
+html += `
+    <p>
+        <strong>#${index + 1} ${major}</strong><br>
+        <span class="bar">${bar}</span> ${avgScore.toFixed(2)}
+    </p>
+`;
 });
     
 
