@@ -424,6 +424,12 @@ function avg(arr){
 }
 
 async function calculateScore(){
+    const unansweredCount = answers.filter(answer => answer === null).length;
+
+if (unansweredCount > 0) {
+    alert(`Please answer all questions before calculating your score. You still have ${unansweredCount} unanswered question(s).`);
+    return;
+}
     let social=[], academia=[], hobbies=[];
 
     questions.forEach((q,i)=>{
