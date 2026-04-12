@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Neek Scale</title>
+<title>The Jean-Perry-Vosmer Scale(The Neek Scale)</title>
 
 <style>
 body {
@@ -71,6 +71,13 @@ h1 {
     font-size: 24px;
     margin-top: 30px;
 }
+#thankYou {
+    text-align: center;
+    margin-top: 15px;
+    opacity: 0.8;
+    font-style: italic;
+    display: none;
+}
 </style>
 </head>
 
@@ -95,7 +102,9 @@ h1 {
 <div id="quiz"></div>
 
 <button id="submitBtn" onclick="calculateScore()">Calculate Score</button>
-
+<p id="thankYou">
+    Thank you for taking the test! If you want to take it again, refresh the page!
+</p>
 <div id="result"></div>
 </div>
 
@@ -280,6 +289,7 @@ function calculateScore(){
 
     document.getElementById("result").innerText =
         "Your Neek Score: " + score.toFixed(2);
+    document.getElementById("thankYou").style.display = "block";
 }
 
 </script>
