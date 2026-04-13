@@ -493,6 +493,7 @@ function startQuiz() {
     document.getElementById("startSection").style.display = "none";
     document.getElementById("quiz").style.display = "block";
     document.getElementById("submitBtn").style.display = "block";
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
 }
 function updateSubmitButton() {
     const unansweredCount = answers.filter(answer => answer === null).length;
