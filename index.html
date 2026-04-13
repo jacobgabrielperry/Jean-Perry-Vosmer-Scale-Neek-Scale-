@@ -534,6 +534,7 @@ await addDoc(collection(db, "results"), {
 });
 
 await showAverages();
+document.getElementById("result").scrollIntoView({ behavior: "smooth" });
 }
 async function showAverages() {
     const snapshot = await getDocs(collection(db, "results"));
