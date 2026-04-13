@@ -196,6 +196,17 @@ h1 {
     opacity: 0.5;
     cursor: not-allowed;
 }
+#viewStatsBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #3a3a6a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -239,6 +250,7 @@ h1 {
         In short: the more obscure your hobbies and the more questionable your social habits… the higher you score 😄
     </p>
 </div>    
+<button id="viewStatsBtn">View Current Rankings</button>
 <div id="startSection" class="category">
     <h2>Select your Bachelor</h2>
     <p class="startText">Choose your study program before taking the quiz.</p>
@@ -421,10 +433,16 @@ const questions = [
 
 const quiz = document.getElementById("quiz");
 const startBtn = document.getElementById("startBtn");
-const submitBtn = document.getElementById("submitBtn");    
+const submitBtn = document.getElementById("submitBtn");  
+const viewStatsBtn = document.getElementById("viewStatsBtn");
 let answers = new Array(questions.length).fill(null);
 startBtn.addEventListener("click", startQuiz);
 submitBtn.addEventListener("click", calculateScore);
+viewStatsBtn.addEventListener("click", async () => {
+    document.getElementById("result").innerHTML = "<p>Loading rankings...</p>";
+    document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+    await showAverages();
+});
 updateSubmitButton();
 // Build UI grouped by category
 ["social","academia","hobbies"].forEach(category => {
